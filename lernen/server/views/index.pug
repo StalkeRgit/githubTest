@@ -1,0 +1,12 @@
+html 
+  head 
+    title= title 
+    body 
+      h1 Welcome to my Website
+      a(href='/posts/createpost') Createposts 
+      div 
+        for post in list 
+          div 
+            h4= post.tittel 
+            p= post.content 
+            a(href=`/posts/${post._id}`) Post ansehen 

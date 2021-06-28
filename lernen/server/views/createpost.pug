@@ -1,0 +1,12 @@
+html 
+  head 
+    title= titel
+  body 
+    h1 Create post 
+    div 
+      form(action="/posts/")
+        label(for="titel") Titel 
+        input(id="titel" name="titel" type="text")
+        labe(for="content") Content 
+        input(id="content" name= "content" type="text")
+        input(type="submit" value="speichern")   
