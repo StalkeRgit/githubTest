@@ -1,24 +1,23 @@
 {
-  "name": "main",
+  "name": "node-beispiel",
   "version": "1.0.0",
-  "description": "test",
-  "main": "index.js",
+  "description": "",
+  "main": "java.js",
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.6.9",
+    "mongoose": "^5.12.14",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "mongoose": "^5.12.14",
-    "vue-cli-plugin-vuetify": "^2.4.1"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon Node/main/server.js",
-    "start": "node lernen/server/app.js"
-    
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC"
