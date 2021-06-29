@@ -57,7 +57,7 @@ db.on('open',function(){
 //         if (err) return console.error(error);
 //         console.log(wallets.length + " saved to account.");
 //       });
-});
+// });
 app.use(logger);
 app.use(express.static(path.join(__dirname,"Public")));
 
