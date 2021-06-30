@@ -1,25 +1,24 @@
 const mongoose = require('mongoose');
-
+ 
 const topicSchema = mongoose.Schema({
-  name:{
+    name: {
     type: String,
     required: true
-  },
-  color:{
-    type: String,
-  },
-  weekday:{
-    type: String,
-    required: true
-  },
-  start:{
+    },
+    color:{
+    typ: String,
+    },
+    weekday: {
     type: String,
     required: true
-  },
-  end:{
+    },
+    start: {
     type: String,
     required: true
-  },
-});
-
-module.exports = mongoose.model('Topic', topicSchema);
+    },
+    end: {
+    type: String,
+    required: true
+    },
+})
+module.exports = mongoose.model('Topics', topicSchema);
