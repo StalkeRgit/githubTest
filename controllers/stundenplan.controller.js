@@ -1,39 +1,27 @@
-const Topic = require('../models/Topic');
-
-const create = async (topicData) => {
-  const topic = await Topic.create(topicData);
-  return topic;
+const Topic = require('../models/Topic')
+ 
+exports.create = async (topic) => {
+    const topicdata = await Topic.create(topic);
+    return topicdata;
 }
-
-const findAll = async () => {
-  const topics = await Topic.find();
-  return topics;
+ 
+exports.findAll = async () => {
+    const list = await Topic.find();
+    console.log(list)
+    return list;
+};
+ 
+exports.find = async (id) => {
+    const topic = await Topic.findById(id);
+    return topic;
 }
-
-const find = async (id) => {
-  const topic = await Topic.findById(id);
-  return topic;
+ 
+exports.update = async (id,topic) => {
+   const newtopic = await Topic.findByIdAndUpdate(id,topic,{new: true})
+   return newtopic;
 }
-
-const findByCategory = async (cat) => {
-  const list = await Topic.find({ category: {$eq: cat } });
-  return list;
-}
-
-const update = async (id, update) => {
-  const topic = await Topic.findByIdAndUpdate(id, update, { new: true });
-  return topic;
-}
-
-const remove = async (id) => {
-  await Topic.findByIdAndRemove(id);
-}
-
-module.exports = {
-  create,
-  find,
-  findAll,
-  update,
-  remove,
-  findByCategory,
+ 
+exports.remove = async (id) => {
+    const topic = await Topic.findByIdAndDelete(id);
+    return topic;
 }
