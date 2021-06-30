@@ -54,7 +54,7 @@ router.post('/update/:postId', async (req, res) => {
   res.send(updatedPost);
 });
 
-router.post('/delete/:postId', async (req, res) => {
+router.get('/delete/:postId', async (req, res) => {
   console.log(`Aufruf auf: ${req.originalUrl}`);
   await stundenplan.remove(req.params.postId);
   const list = await stundenplan.findAll();
