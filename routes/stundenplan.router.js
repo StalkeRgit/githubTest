@@ -1,62 +1,66 @@
 const express = require('express');
-const router = express.Router()
-const Topics = require('../controllers/stundenplan.controller')
- 
-router.get('/about', async (req, res) =>{​​​​​​​​
-const list = await Topics.findAll();
-res.render('about',{​​​​​​​​title:'list', list}​​​​​​​​);
-}​​​​​​​​)
- 
-router.get('/', async (req, res) => {​​​​​​​​
-if (req.query.titel && req.query.content){​​​​​​​​
-const data = {​​​​​​​​tittel:req.query.titel, content:req.query.content}​​​​​​​​
-await Topics.create(data);
-return res.redirect(req.originalUrl.split("?").shift());
- 
+const router = express.Router();
+const stundenplan = require('../controllers/stundenplan.controller');
 
-    }​​​​​​​​
-const list = await Topics.findAll();
-res.send(list)
+router.get('/', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  if (req.query.name && req.query.weekday) {
+    const data = {
+      name: req.query.name,
+      weekday: req.query.weekday,
+      start: req.query.start,
+      end: req.query.end,
+    }
+    await stundenplan.create(data);
+    return res.redirect(req.originalUrl.split('?').shift());
+  }
+  const list = await stundenplan.findAll();
+  res.send(list);
+});
 
-}​​​​​​​​)
- 
-router.post('/create',async (req,res) => {​​​​​​​​
-const data = {​​​​​​​​
-name: req.body.name,
-weekday: req.body.weekday,
-start: req.body.start,
-end: req.body.end
-    }​​​​​​​​ 
-const topic = await Topics.create(data)
-console.log(topic)
-res.send(topic);
-}​​​​​​​​)
-router.get('/creattopic', (req,res) => {​​​​​​​​
-res.render('creattopic')
-}​​​​​​​​)
- 
-router.get('/:topicId', async (req,res) => {​​​​​​​​
-const topic = await Topics.find(req.params.topicId)
-res.send(topic)
-}​​​​​​​​)
- 
-router.post('/update/:topicId', async (req,res) => {​​​​​​​​
-    const update = {
-        name: req.body.name,
-        weekday: req.body.weekday,
-        start: req.body.start,
-        end: req.body.end,
-      }​​​​​​​​
-const topic = await Topics.update(req.params.topicId,update)
-res.send(topic)
+router.get('/about', async (req, res) => {
+  res.render('about', { title: 'about' });
+});
 
-}​​​​​​​​)
- 
-router.post('/delete/:topicId', async (req,res) => {​​​​​​​​
-const topics = await Topics.remove(req.params.topicId)
-const list = await Topics.findAll();
-res.send(list)
-}​​​​​​​​)
- 
-module.exports = router
+router.get('/create', (req, res) => {
+  res.render('createpost');
+});
 
+router.post('/create', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  const data = {
+    name: req.body.name,
+    weekday: req.body.weekday,
+    start: req.body.start,
+    end: req.body.end,
+  }
+  const newpost = await stundenplan.create(data);
+  res.send(newpost);
+});
+
+router.get('/:postId', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  const post = await stundenplan.find(req.params.postId);
+  res.send(post);
+});
+
+router.post('/update/:postId', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  const update = {
+    name: req.body.name,
+    weekday: req.body.weekday,
+    start: req.body.start,
+    end: req.body.end,
+  }
+  const updatedPost = await stundenplan.update(req.params.postId, update);
+  res.send(updatedPost);
+});
+
+router.get('/delete/:postId', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  await stundenplan.remove(req.params.postId);
+  const list = await stundenplan.findAll();
+  res.send(list);
+});
+
+module.exports = router;
