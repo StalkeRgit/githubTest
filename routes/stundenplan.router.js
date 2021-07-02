@@ -71,6 +71,18 @@ router.post('/update/:postId', async (req, res) => {
   res.send(updatedPost);
 });
 
+router.post('/updateMeeting/:postId', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  const update = {
+    name: req.body.name,
+    date: req.body.date,
+    start: req.body.start,
+    end: req.body.end,
+  }
+  const updatedMeeting = await stundenplan.update(req.params.postId, update);
+  res.send(updatedMeeting);
+});
+
 router.get('/delete/:postId', async (req, res) => {
   console.log(`Aufruf auf: ${req.originalUrl}`);
   await stundenplan.remove(req.params.postId);
