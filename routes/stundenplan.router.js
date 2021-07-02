@@ -26,6 +26,7 @@ router.get('/create', (req, res) => {
   res.render('createpost');
 });
 
+
 router.post('/create', async (req, res) => {
   console.log(`Aufruf auf: ${req.originalUrl}`);
   const data = {
@@ -34,8 +35,22 @@ router.post('/create', async (req, res) => {
     start: req.body.start,
     end: req.body.end,
   }
-  const newpost = await stundenplan.create(data);
-  res.send(newpost);
+
+  const newPost = await stundenplan.create(data);
+  res.send(newPost);
+
+});
+
+router.post('/createMeeting', async (req, res) => {
+  console.log(`Aufruf auf: ${req.originalUrl}`);
+  const data = {
+    name: req.body.name,
+    date: req.body.date,
+    start: req.body.start,
+    end: req.body.end,
+  } 
+  const newPost = await stundenplan.create(data);
+  res.send(newPost);
 });
 
 router.get('/:postId', async (req, res) => {
